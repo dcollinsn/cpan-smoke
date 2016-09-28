@@ -6,4 +6,8 @@ cp /home/cpan1/.cpanreporter/config.ini ./config/cpan1/
 cp /home/cpan2/.cpanreporter/config.ini ./config/cpan2/
 cp /home/cpan3/.cpanreporter/config.ini ./config/cpan3/
 cp /home/cpan4/.cpanreporter/config.ini ./config/cpan4/
+cp /home/cpan1/buildperl.sh ./config/cpan1/
+cp /home/cpan2/buildperl.sh ./config/cpan2/
+cp /home/cpan3/buildperl.sh ./config/cpan3/
+cp /home/cpan4/buildperl.sh ./config/cpan4/
 cp /home/dcollins/toolchain/distroprefs.yml ./config/
