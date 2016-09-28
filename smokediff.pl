@@ -4,13 +4,16 @@ use warnings;
 my $id1 = $ARGV[0] || die "Needs two args";
 my $id2 = $ARGV[1] || die "Needs two args";
 
-my @a = glob '/home/cpan'.$id1.'/reports/*';
-my @b = glob '/home/cpan'.$id2.'/reports/*';
+my $patha = ($id1 =~ /\D/) ? "./$id1/" : "/home/cpan$id1/reports/";
+my $pathb = ($id2 =~ /\D/) ? "./$id2/" : "/home/cpan$id2/reports/";
+
+my @a = glob $patha.'*';
+my @b = glob $pathb.'*';
 my %a;
 my %b;
 
 foreach my $a (@a) {
-    if ($a =~ m|/home/cpan\d/reports/(\w+?)\.(.+?)\.x86_64.+\.(\d+)\.(\d+)\.rpt|) {
+    if ($a =~ m|$patha(\w+?)\.(.+?)\.x86_64.+\.(\d+)\.(\d+)\.rpt|) {
         my $grade = $1;
         my $pkg = $2;
         my $time = $3;
@@ -20,7 +23,7 @@ foreach my $a (@a) {
 }
 
 foreach my $b (@b) {
-    if ($b =~ m|/home/cpan\d/reports/(\w+?)\.(.+?)\.x86_64.+\.(\d+)\.(\d+)\.rpt|) {
+    if ($b =~ m|$pathb(\w+?)\.(.+?)\.x86_64.+\.(\d+)\.(\d+)\.rpt|) {
         my $grade = $1;
         my $pkg = $2;
         my $time = $3;
