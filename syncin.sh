@@ -1,0 +1,9 @@
+cp /home/cpan1/.cpan/CPAN/MyConfig.pm ./config/cpan1/
+cp /home/cpan2/.cpan/CPAN/MyConfig.pm ./config/cpan2/
+cp /home/cpan3/.cpan/CPAN/MyConfig.pm ./config/cpan3/
+cp /home/cpan4/.cpan/CPAN/MyConfig.pm ./config/cpan4/
+cp /home/cpan1/.cpanreporter/config.ini ./config/cpan1/
+cp /home/cpan2/.cpanreporter/config.ini ./config/cpan2/
+cp /home/cpan3/.cpanreporter/config.ini ./config/cpan3/
+cp /home/cpan4/.cpanreporter/config.ini ./config/cpan4/
+cp /home/dcollins/toolchain/distroprefs.yml ./config/

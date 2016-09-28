@@ -1,0 +1,136 @@
+--- 
+comment: |
+  Tests hang on Linux
+disabled: 1
+match:
+  perlconfig:
+    osname: linux
+  distribution: |
+    /(?x:
+    .^   # never matches, only purpose is to let things align nicely
+    #make
+    #tests
+    |PDL-Graphics-Simple-1.005 #https://rt.cpan.org/Ticket/Display.html?id=86275
+    |Plack-Server-AnyEvent-Server-Starter-0.00002 #https://rt.cpan.org/Ticket/Display.html?id=85939
+    |IO-Pty-HalfDuplex-0.02  #https://rt.cpan.org/Ticket/Display.html?id=85927
+    |POE-Loop-AnyEvent-0.004 #https://rt.cpan.org/Ticket/Display.html?id=85920
+    |Net-Netcat-0.05 #https://rt.cpan.org/Ticket/Display.html?id=82357
+    |Emacs-EPL-0.7 #https://rt.cpan.org/Public/Bug/Display.html?id=34724
+    |Test-WWW-Simple-0.34 #https://rt.cpan.org/Ticket/Display.html?id=86312
+    |App-SD-0.75 #https://rt.cpan.org/Ticket/Display.html?id=86399
+    |AnyEvent-ZeroMQ-0.01 #https://rt.cpan.org/Ticket/Display.html?id=86481
+    |WWW-Hashdb-0.01 #https://rt.cpan.org/Ticket/Display.html?id=86502
+    |Win32-Script-0.58 #https://rt.cpan.org/Ticket/Display.html?id=82832
+    |Math-TrulyRandom-1.0 #https://rt.cpan.org/Public/Bug/Display.html?id=34693
+    |Net-Server-SS-PreFork-0.05 #dep missing https://rt.cpan.org/Ticket/Display.html?id=92169
+    |AnyEvent-IRC-Server-0.03 #https://github.com/kan/p5-anyevent-irc-server/issues/5
+    |AnyEvent-Gearman-WorkerPool-1.0 #https://rt.cpan.org/Ticket/Display.html?id=94107
+    |Thread-Isolate-0.05 #https://rt.cpan.org/Ticket/Display.html?id=94306
+    |Compiler-Parser-0.10 #https://github.com/goccy/p5-Compiler-Parser/issues/13
+    |Compiler-Lexer-0.22 #https://github.com/goccy/p5-Compiler-Lexer/issues/41
+    |Gearman-JobScheduler-0.16 #https://rt.cpan.org/Ticket/Display.html?id=97420
+    |ZMQx-Class-0.006 #https://rt.cpan.org/Ticket/Display.html?id=100744
+    |Devel-Trepan-0.72
+    )|
+--- 
+comment: |
+  Tests hang, OS independent
+disabled: 1
+match:
+  distribution: |
+    /(?x:
+    .^   # never matches, only purpose is to let things align nicely
+    |HTTP-ProxySelector-Persistent-0.02 #https://rt.cpan.org/Ticket/Display.html?id=85390
+    |IO-File-Log-1.01 #cfrmd https://rt.cpan.org/Ticket/Display.html?id=34778
+    |App-Prove-Plugin-Cluster-0.02 #https://rt.cpan.org/Ticket/Display.html?id=82096
+    |NRD-Daemon-0.04 #https://rt.cpan.org/Ticket/Display.html?id=82716
+    |Module-AutoLoad-0.04 #https://rt.cpan.org/Ticket/Display.html?id=86370 https://rt.cpan.org/Ticket/Display.html?id=102018
+    |Bot-Net-0.1.0 #https://rt.cpan.org/Ticket/Display.html?id=41231
+    |Net-Random-2.31 #sometimes VERY slow https://rt.cpan.org/Ticket/Display.html?id=93048
+    |Net-Proxy-0.13 #https://rt.cpan.org/Ticket/Display.html?id=100007
+    |App-perlrdf-0.006 #https://rt.cpan.org/Ticket/Display.html?id=99158
+    |DiaColloDB-0.11.001
+    |Paranoid-2.04
+    |Devel-Debug-DBGp-0.20
+    |Starman-0.4014
+    |Mojolicious-Plugin-AssetPack-1.24
+    |Term-Form-0.310
+    |Log4Perl-ImportHandle-0.033
+    |Footprintless-1.09
+    |Data-Sah-0.87
+    |Term-Shell-0.09
+    |Hash-StoredIterator-0.008
+    |App-Critique-0.04
+    |Test-Stream-1.302027
+    )|
+--- 
+comment: |
+  Things not to test at all
+disabled: 1
+match:
+  distribution: |
+    /(?x:
+    .^   # never matches, only purpose is to let things align nicely
+    |(?:emb|syb|bio)?perl-\d
+    |(?:parrot|ponie|kurila|Perl6-Pugs)-\d
+    |Perl-Dist- # don't test perl builders
+    |perl-?5\.004 
+    |perl_mlb\.zip
+    |Acme-BadExample
+    |Acme-Mom-Yours
+    |FreeHAL  # huge!
+    |ORDB-CPANTesters    # big download
+    )|
+--- 
+comment: |
+  Asks questions in Makefile.PL/Build.PL
+disabled: 1
+match:
+  distribution: |
+    /(?x:
+    .^   # never matches, only purpose is to let things align nicely
+    #.pl
+    |Bio-BigFile-1.07 #https://rt.cpan.org/Ticket/Display.html?id=56916
+    |WWW-Autosite-1.08 #https://rt.cpan.org/Ticket/Display.html?id=35081 , not visible
+    |DbFramework-1.12 #https://rt.cpan.org/Ticket/Display.html?id=90022
+    |Apache-ProxyScan-0.92 #inf. loop https://rt.cpan.org/Ticket/Display.html?id=93854
+    |Date-Business-1.2 #https://rt.cpan.org/Ticket/Display.html?id=94415
+    |CGI-Debug-1.0 #https://rt.cpan.org/Ticket/Display.html?id=94416
+    |Math-Matlab-0.08 #https://rt.cpan.org/Ticket/Display.html?id=94427
+    |Net-LDAPapi-3.0.3 #https://rt.cpan.org/Ticket/Display.html?id=94428
+    |Agent-3.20 #https://rt.cpan.org/Ticket/Display.html?id=94430
+    |Replication-Recall-1.6 #https://rt.cpan.org/Ticket/Display.html?id=94450
+    |Authen-Krb5-Easy-0.90 #https://rt.cpan.org/Ticket/Display.html?id=94454
+    |Myco-1.22 #https://rt.cpan.org/Ticket/Display.html?id=102094
+    |Apache-SessionX-2.01 #https://rt.cpan.org/Ticket/Display.html?id=102763
+    #make/Build stage
+    |Alien-LibGumbo-0.02 #https://rt.cpan.org/Ticket/Display.html?id=89087 #Windows only
+    |Alien-Sodium-0.01 #https://rt.cpan.org/Ticket/Display.html?id=92799 #Windows only
+    |TripleStore-0.03 #cf https://rt.cpan.org/Public/Bug/Display.html?id=34531
+    |mod_perl # Stupid...
+    |Lingua-TreeTagger
+    )|
+--- 
+comment: |
+  Asks questions in tests
+disabled: 1
+match:
+  distribution: |
+    /(?x:
+    .^   # never matches, only purpose is to let things align nicely
+    |Filesys-Ext2-0.20 #https://rt.cpan.org/Ticket/Display.html?id=85581
+    |Curses-Simp-1.4.A8UG1gG #https://rt.cpan.org/Public/Bug/Display.html?id=82780
+    |Authen-Krb5-Admin-0.17 #https://rt.cpan.org/Ticket/Display.html?id=86278
+    |Forecast-IO-0.21 #https://rt.cpan.org/Ticket/Display.html?id=86798
+    |Test-AutomationFramework-0.060.04 #https://rt.cpan.org/Ticket/Display.html?id=88026
+    |Net-Azure-StorageClient-0.5 #https://rt.cpan.org/Ticket/Display.html?id=90201 https://github.com/junnama/net-azure-storageclient-perl/pull/1
+    |RAS-AS5200-1.04 #https://rt.cpan.org/Ticket/Display.html?id=94429
+    |RAS-HiPerARC-1.03 #https://rt.cpan.org/Ticket/Display.html?id=94448
+    |MMM-OracleDump-0.01 #https://rt.cpan.org/Ticket/Display.html?id=94444
+    |DBIx-Broker-1.14 #https://rt.cpan.org/Ticket/Display.html?id=94449
+    |Authen-CyrusSASL-0.01 #hidden https://rt.cpan.org/Ticket/Display.html?id=94465
+    |MOP-1.00 #https://rt.cpan.org/Ticket/Display.html?id=101172
+    |DarkSky-API-0.3
+    |Term-Title
+    )|
+
