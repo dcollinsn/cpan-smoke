@@ -62,6 +62,9 @@ match:
     |Hash-StoredIterator-0.008
     |App-Critique-0.04
     |Test-Stream-1.302027
+    |Locale-CLDR-Locales
+    |Test-Clustericious-Cluster-0.33
+    |Server-Starter-0.32
     )|
 --- 
 comment: |
