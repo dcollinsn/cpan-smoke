@@ -9,7 +9,7 @@ my $outlist = `perl smokediff.pl $id1 $id2`;
 my @reports = split('-'x60, $outlist);
 
 foreach my $lines (@reports) {
-	if ($lines =~ m|/home/cpan(\d)/reports/fail\..+?\d\.rpt|) {
+	if ($lines =~ m{/home/cpan(\d)/reports/(?:fail|unknown|na)\..+?\d\.rpt}) {
 		my $id = $1;
 		my $report = $&;
 		open(my $fh, '<', $report) or die "Can't open < $report: $!";
@@ -21,6 +21,9 @@ foreach my $lines (@reports) {
 		if ($line =~ /X-Test-Reporter-Distfile: (.+)/) {
 			my $dist = $1;
 			my $cmd = "sudo -u cpan$id PERL_CR_SMOKER_RUNONCE=1 /home/cpan$id/install/bin/perl -MCPAN -e '\$CPAN::Config->{test_report} = 1; install(q($dist))'";
+                        $ENV{AUTOMATED_TESTING} = 1;
+                        $ENV{PERL_MM_USE_DEFAULT} = 1;
+                        $ENV{PERL_EXTUTILS_AUTOINSTALL} = 1;
 			system($cmd);
 		} else {
 			print "Error: No X-Test-Reporter-Distfile line in $report\n";
