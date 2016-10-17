@@ -19,9 +19,9 @@ if ($id1 =~ /\D/) {
     $aV = `/home/cpan$id1/install/bin/perl -V`;
     $aver = `./tellversion.sh $id1`;
     chomp $aver;
-    if ($aV =~ /\bRC(\d)\b/) {
-        $aver .= "-RC$1";
-    }
+#    if ($aV =~ /\bRC(\d)\b/) {
+#        $aver .= "-RC$1";
+#    }
 }
 
 if ($id2 =~ /\D/) {
@@ -31,9 +31,9 @@ if ($id2 =~ /\D/) {
     $bV = `/home/cpan$id2/install/bin/perl -V`;
     $bver = `./tellversion.sh $id2`;
     chomp $bver;
-    if ($bV =~ /\bRC(\d)\b/) {
-        $bver .= "-RC$1";
-    }
+#    if ($bV =~ /\bRC(\d)\b/) {
+#        $bver .= "-RC$1";
+#    }
 }
 
 print <<"EOM";
