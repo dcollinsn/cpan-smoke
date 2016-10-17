@@ -119,17 +119,17 @@ Control            Experiment
 EOM
 printf('%12s %8s %8s %8s %8s'."\n", "", "PASS", "FAIL", "UNKNOWN", "NA");
 my $tk = $counthash{'pass'};
-printf('%12s %8d %8d %8d %8d'."\n", "PASS", $tk->{'pass'}, $tk->{'fail'},
-    $tk->{'unknown'}, $tk->{'na'});
+printf('%12s %8d %8d %8d %8d'."\n", "PASS", $tk->{'pass'}//0, $tk->{'fail'}//0,
+    $tk->{'unknown'}//0, $tk->{'na'}//0);
 $tk = $counthash{'fail'};
-printf('%12s %8d %8d %8d %8d'."\n", "FAIL", $tk->{'pass'}, $tk->{'fail'},
-    $tk->{'unknown'}, $tk->{'na'});
+printf('%12s %8d %8d %8d %8d'."\n", "FAIL", $tk->{'pass'}//0, $tk->{'fail'}//0,
+    $tk->{'unknown'}//0, $tk->{'na'}//0);
 $tk = $counthash{'unknown'};
-printf('%12s %8d %8d %8d %8d'."\n", "UNKNOWN", $tk->{'pass'}, $tk->{'fail'},
-    $tk->{'unknown'}, $tk->{'na'});
+printf('%12s %8d %8d %8d %8d'."\n", "UNKNOWN", $tk->{'pass'}//0, $tk->{'fail'}//0,
+    $tk->{'unknown'}//0, $tk->{'na'}//0);
 $tk = $counthash{'na'};
-printf('%12s %8d %8d %8d %8d'."\n", "NA", $tk->{'pass'}, $tk->{'fail'},
-    $tk->{'unknown'}, $tk->{'na'});
+printf('%12s %8d %8d %8d %8d'."\n", "NA", $tk->{'pass'}//0, $tk->{'fail'}//0,
+    $tk->{'unknown'}//0, $tk->{'na'}//0);
 print "\n";
 
 print <<"EOM";
@@ -146,6 +146,10 @@ conflicts when two different user accounts run their tests.
 
 The control detected $avarcount distributions with variable behavior.
 The experimental detected $bvarcount distributions with variable behavior.
+
+These distributions have been counted as "PASS" as long as they passed
+their tests at least once. However, one test report of each grade has
+been saved and may be uploaded to the metabase.
 
 EOM
 
