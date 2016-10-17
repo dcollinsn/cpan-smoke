@@ -74,6 +74,7 @@ my $reports_i = 0;
 my $term_title_last_changed = time;
 for my $file (@reports) {
     $reports_i++;
+    sleep 1;
     if (time - $term_title_last_changed >= 1) {
 	set_term_title $sending_reports_msg->($reports_i);
 	$term_title_last_changed = time;
