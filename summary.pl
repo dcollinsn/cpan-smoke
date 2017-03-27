@@ -39,8 +39,8 @@ if ($id2 =~ /\D/) {
 print <<"EOM";
 This is a CPAN Smoke summary. Two versions of Perl were installed, many
 CPAN distributions were tested, and the results were compared. For this
-report, the control version is $aver, and the experimental
-version is $bver.
+report, the control version is $aver, and the
+experimental version is $bver.
 
 A perl -V for each version is located at the bottom of this message.
 
@@ -85,6 +85,19 @@ foreach my $b (@b) {
     }
 }
 
+my $areps = scalar(@a);
+my $adists = scalar(keys %a);
+my $breps = scalar(@b);
+my $bdists = scalar(keys %b);
+
+foreach my $a (@avarlist) {
+    delete $a{$a};
+}
+
+foreach my $b (@bvarlist) {
+    delete $b{$b};
+}
+
 my $count = 0;
 my $diff = 0;
 
@@ -97,11 +110,6 @@ foreach my $a (keys %a) {
     $counthash{$agrade}->{$bgrade}++;
     $count++;
 }
-
-my $areps = scalar(@a);
-my $adists = scalar(keys %a);
-my $breps = scalar(@b);
-my $bdists = scalar(keys %b);
 
 print <<"EOM";
 ------
@@ -147,9 +155,9 @@ conflicts when two different user accounts run their tests.
 The control detected $avarcount distributions with variable behavior.
 The experimental detected $bvarcount distributions with variable behavior.
 
-These distributions have been counted as "PASS" as long as they passed
-their tests at least once. However, one test report of each grade has
-been saved and may be uploaded to the metabase.
+These distributions have been ignored in the statistics and in the diff
+report below. However, one test report of each grade has been saved and
+may be uploaded to the metabase.
 
 EOM
 
@@ -185,6 +193,8 @@ foreach my $a (sort {$a{$a}->[2] <=> $a{$b}->[2]} keys %a) {
             my $commentsfile = "$aver-$bver/$a";
             if (-e $commentsfile) {
                 print "  Comment: ".`cat $commentsfile`;
+            } elsif (-e "generic-comments/$a") {
+                print "  Comment: ".`cat generic-comments/$a`;
             } else {
                 print "  // $commentsfile empty\n";
             }

@@ -11,12 +11,17 @@ my @a = glob $patha.'*';
 my @b = glob $pathb.'*';
 my %a;
 my %b;
+my @avarlist;
+my @bvarlist;
 
 foreach my $a (@a) {
     if ($a =~ m|$patha(\w+?)\.(.+?)\.x86_64.+\.(\d+)\.(\d+)\.rpt|) {
         my $grade = $1;
         my $pkg = $2;
         my $time = $3;
+        if (exists $a{$pkg}) {
+            push @avarlist, $pkg;
+        }
         next if (exists $a{$pkg} && $a{$pkg}->[0] eq 'pass');
         $a{$pkg} = [$grade, $a, $time];
     }
@@ -27,9 +32,21 @@ foreach my $b (@b) {
         my $grade = $1;
         my $pkg = $2;
         my $time = $3;
+        if (exists $b{$pkg}) {
+            push @bvarlist, $pkg;
+        }
         next if (exists $b{$pkg} && $b{$pkg}->[0] eq 'pass');
         $b{$pkg} = [$grade, $b, $time];
     }
+}
+
+
+foreach my $a (@avarlist) {
+    delete $a{$a};
+}
+
+foreach my $b (@bvarlist) {
+    delete $b{$b};
 }
 
 my $count = 0;
