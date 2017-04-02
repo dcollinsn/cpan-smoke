@@ -13,7 +13,6 @@ foreach my $lines (@reports) {
 		my $id = $1;
                 my $grade = $2;
 		my $report = $&;
-                my $mode = ($grade eq 'pass' ? 'test' : 'install');
                 next if $grade eq 'pass';
 		open(my $fh, '<', $report) or die "Can't open < $report: $!";
 		my $line = <$fh>;
@@ -22,15 +21,12 @@ foreach my $lines (@reports) {
 		}
 		close($fh);
                 my $envvar = '';
-                if ($id == 2 or $id == 4) {
-                    $envvar = 'PERL_USE_UNSAFE_INC=0 ';
-                }
 		if ($line =~ /X-Test-Reporter-Distfile: (.+)/) {
 			my $dist = $1;
                         $envvar .= 'AUTOMATED_TESTING=1 ';
                         $envvar .= 'PERL_MM_USE_DEFAULT=1 ';
                         $envvar .= 'PERL_EXTUTILS_AUTOINSTALL=1 ';
-			my $cmd = "sudo -u cpan$id PERL_CR_SMOKER_RUNONCE=1 $envvar /home/cpan$id/install/bin/perl -MCPAN -e '\$CPAN::Config->{test_report} = 1; $mode(q($dist))'";
+			my $cmd = "sudo -u cpan$id $envvar /home/cpan$id/install/bin/perl -MCPAN -e '\$CPAN::Config->{test_report} = 0; \$ENV{q(PERL_USE_UNSAFE_INC)} = 1; notest(q(install), q($dist))'";
                         $ENV{AUTOMATED_TESTING} = 1;
                         $ENV{PERL_MM_USE_DEFAULT} = 1;
                         $ENV{PERL_EXTUTILS_AUTOINSTALL} = 1;

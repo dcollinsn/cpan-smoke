@@ -2,13 +2,13 @@ use strict;
 use warnings;
 
 my @ready = glob '/home/dcollins/var/cpansmoker/sync/*';
-my @done = glob '/home/dcollins/var/cpansmoker/done/*';
+my @done = glob '/home/dcollins/var/cpansmoker/done/*/*';
 
 my %complete;
 my $count = 0;
 
 foreach my $done (@done) {
-	if ($done =~ m|/home/dcollins/var/cpansmoker/done/(.+)|) {
+	if ($done =~ m|/home/dcollins/var/cpansmoker/done/.+/(.+)|) {
 		my $key = $1;
 		$complete{$key}++;
 	}

@@ -1,20 +1,30 @@
 use strict;
 use warnings;
+use DateTime;
+use Term::ANSIColor qw(:constants);
 
-foreach my $i (1..4) {
-    my $user = 'cpan'.$i;
-    my $ps = `ps -F -U $user`;
+while (1) {
+    `reset`;
+    my $now = DateTime->now(time_zone => 'America/New_York');
 
-    if ($ps =~ /CPAN::Reporter::Smoker/) {
-        print "$user running";
-        my $count = `ls /home/cpan$i/reports/ | wc -l`;
-        printf(' [%5d]', $count);
-        if ($ps =~ /(\d{2}:\d{2})\s+pts.\d+\s+[\d:]{8}.+install\( '(.+?)'/) {
-            print ", [$1] $2";
+    foreach my $i (1..4) {
+        my $user = 'cpan'.$i;
+        my $ps = `ps -F -U $user`;
+
+        if ($ps =~ /CPAN::Reporter::Smoker/) {
+            my $count = `ls /home/cpan$i/reports/ | wc -l`;
+            if ($ps =~ /(\d{2}):(\d{2})\s+pts.\d+\s+[\d:]{8}.+install\( '(.+?)'/) {
+                my $then = DateTime->now(time_zone => 'America/New_York');
+                $then->set(hour => $1, minute => $2);
+                if ($now->subtract_datetime($then)->in_units('minutes') > 5) {
+                    print REVERSE;
+                }
+                printf "$user running [%5d], [$1:$2] $3".RESET."\n", $count;
+            }
+        } else {
+            print "$user not running\n";
         }
-    } else {
-        print "$user not running";
     }
-    print "\n";
+    sleep 5;
 }
 
